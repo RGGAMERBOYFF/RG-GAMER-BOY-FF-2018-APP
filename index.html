@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#05070b">
+<title>FREE FIRE 2018 • Access</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body{font-family:Arial,Helvetica,sans-serif;background:#05070b;color:#fff;display:flex;align-items:center;justify-content:center;padding:20px}
+body:before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(circle at 15% 10%,rgba(255,45,25,.2),transparent 28%),radial-gradient(circle at 85% 20%,rgba(255,150,0,.12),transparent 30%),radial-gradient(circle at 50% 100%,rgba(0,180,255,.1),transparent 35%),#05070b}
+body:after{content:"";position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:42px 42px}
+.card{width:min(100%,520px);padding:34px 24px 28px;border:1px solid #ffffff14;border-radius:25px;background:linear-gradient(145deg,#ffffff0e,#ffffff03);box-shadow:0 25px 80px #0008;text-align:center}
+.badge{display:inline-block;padding:8px 13px;border:1px solid #ff3b2045;border-radius:30px;color:#ff806e;background:#ff3b2010;font-size:10px;font-weight:900;letter-spacing:2px}
+h1{margin-top:20px;font-size:clamp(30px,9vw,48px);line-height:1;letter-spacing:-2px}
+.red{color:#ff3b20}.subtitle{margin:15px auto 0;max-width:390px;color:#8992a3;font-size:13px;line-height:1.7}
+.progress-wrap{margin:28px 0 24px}.progress-top{display:flex;justify-content:space-between;color:#8e97a7;font-size:11px;margin-bottom:9px}
+.progress{height:8px;background:#ffffff0d;border-radius:20px;overflow:hidden}.progress-bar{height:100%;width:25%;background:linear-gradient(90deg,#5865f2,#ff3b20);border-radius:20px;transition:width .3s}
+.step{padding:25px 18px;border:1px solid #ffffff10;border-radius:18px;background:#ffffff06}
+.step-number{color:#ffbd42;font-size:10px;font-weight:900;letter-spacing:2px}.step h2{margin-top:9px;font-size:23px}
+.step p{margin:10px auto 0;max-width:370px;color:#7e8797;font-size:12px;line-height:1.6}
+.timer{width:110px;height:110px;margin:22px auto;border-radius:50%;border:5px solid #5865f2;display:flex;align-items:center;justify-content:center;flex-direction:column;box-shadow:0 0 35px #5865f225}
+.timer strong{font-size:30px}.timer span{font-size:9px;color:#7e8797;margin-top:2px}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:54px;border:0;border-radius:14px;background:linear-gradient(135deg,#5865f2,#4752c4);color:#fff;text-decoration:none;font-size:14px;font-weight:900;letter-spacing:.4px;cursor:pointer;transition:.2s}
+.btn:disabled{opacity:.35;cursor:not-allowed}.btn:not(:disabled):hover{transform:translateY(-2px)}
+.done{display:none;margin-top:13px;color:#67ff9c;font-size:11px}.footer{margin-top:19px;color:#5f6878;font-size:9px;line-height:1.5}
+@media(max-width:420px){.card{padding:28px 16px 22px}.step{padding:22px 14px}}
+</style>
+</head>
+<body>
+<main class="card">
+<div class="badge">FREE FIRE 2018</div>
+<h1>FREE FIRE <span class="red">2018</span></h1>
+<p class="subtitle">Complete the six short steps below to continue to the main website.</p>
+<div class="progress-wrap">
+<div class="progress-top"><span id="stepText">STEP 1 OF 6</span><span id="percent">25%</span></div>
+<div class="progress"><div class="progress-bar" id="bar"></div></div>
+</div>
+<section class="step">
+<div class="step-number" id="stepNumber">STEP 1</div>
+<h2 id="stepTitle">Please wait</h2>
+<p id="stepDescription">Your first step will unlock automatically when the timer reaches zero.</p>
+<div class="timer"><strong id="timer">60</strong><span>SECONDS</span></div>
+<button class="btn" id="continueBtn" disabled>WAIT 60 SECONDS</button>
+<div class="done" id="doneText">✓ Step completed</div>
+</section>
+<div class="footer">Complete each 10-second step. You will continue to the main website after all 6 steps.</div>
+</main>
+<script>
+const MAIN_WEBSITE="https://rggamerboyff.github.io/FREE-FIRE-PRIVATE-SERVER-2018/";
+const steps=[
+["Step","Complete this timer to continue."],
+["Step","Complete this timer to continue."],
+["Step","Complete this timer to continue."],
+["Step","Complete this timer to continue."],
+["Step","Complete this timer to continue."],
+["Step","Complete this timer to continue."]
+];
+let currentStep=0,seconds=10,timerId=null;
+const timerEl=document.getElementById("timer"),button=document.getElementById("continueBtn");
+const titleEl=document.getElementById("stepTitle"),descEl=document.getElementById("stepDescription");
+const numberEl=document.getElementById("stepNumber"),stepTextEl=document.getElementById("stepText");
+const percentEl=document.getElementById("percent"),barEl=document.getElementById("bar"),doneEl=document.getElementById("doneText");
+function renderStep(){
+ const s=steps[currentStep];
+ numberEl.textContent="STEP "+(currentStep+1);titleEl.textContent="STEP "+(currentStep+1);descEl.textContent=s[1];
+ stepTextEl.textContent="STEP "+(currentStep+1)+" OF 6";percentEl.textContent=Math.round((currentStep+1)/6*100)+"%";
+ barEl.style.width=((currentStep+1)/6*100)+"%";seconds=10;timerEl.textContent=seconds;
+ button.disabled=true;button.textContent="WAIT 10 SECONDS";doneEl.style.display="none";
+ clearInterval(timerId);
+ timerId=setInterval(()=>{seconds--;timerEl.textContent=seconds;
+  if(seconds<=0){clearInterval(timerId);button.disabled=false;button.textContent=currentStep===5?"ENTER MAIN WEBSITE":"CONTINUE TO NEXT STEP";doneEl.style.display="block";}
+  else button.textContent="WAIT "+seconds+" SECONDS";
+ },1000);
+}
+button.addEventListener("click",()=>{if(button.disabled)return;if(currentStep===5){window.location.href=MAIN_WEBSITE;return;}currentStep++;renderStep();});
+renderStep();
+</script>
+</body>
+</html>
